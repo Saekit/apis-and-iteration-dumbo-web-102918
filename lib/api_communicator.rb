@@ -58,18 +58,13 @@ def character_info_array
   puts "\nGathering information, just a sec..."
   puts "*" * 10
 
-  array = []
-  array << response_hash["results"]
-  array_of_character_info = []
+  array_of_character_info = response_hash["results"]
 
-resp_hash = response_hash
+  resp_hash = response_hash
   while resp_hash["next"]
       new_link = resp_hash["next"]
       resp_hash = JSON.parse(RestClient.get(new_link))
-      array << resp_hash["results"]
-  end
-  array.each do |page|
-    array_of_character_info.concat(page)
+      array_of_character_info.concat(resp_hash["results"])
   end
   array_of_character_info
 end
